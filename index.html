@@ -1685,7 +1685,7 @@ a { transition: color var(--tr); }
     <div class="sbi" data-nav="settings" onclick="go(&#39;settings&#39;,this)"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><circle cx="12" cy="12" r="3"></circle></svg><span data-i18n="nav.settings">Settings</span><span class="sbi-lock"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 018 0v4"></path></svg></span></div>
   </div>
   
-<div class="sb-foot"><div class="sb-user"><div class="sb-av">SD</div><div><div class="sb-uname">SunnyDelivery</div><div class="sb-uid">M0012345678</div></div><svg class="sb-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M9 5l7 7-7 7"></path></svg></div></div>
+<div class="sb-foot"><div class="sb-user" onclick="go('settings')" title="Account settings"><div class="sb-av">SD</div><div><div class="sb-uname">SunnyDelivery</div><div class="sb-uid">M0012345678</div></div><svg class="sb-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M9 5l7 7-7 7"></path></svg></div></div>
 </aside>
 
 <div class="main">
@@ -1712,7 +1712,13 @@ a { transition: color var(--tr); }
         <button class="demo-st on" data-status="active" onclick="gateSetStatus(&#39;active&#39;)">Active</button>
         <button class="demo-st" data-status="pending" onclick="gateSetStatus(&#39;pending&#39;)">Pending</button>
       </div>
-      <div class="tb-icon" title="Notifications"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg><div class="notif-dot"></div></div>
+      <div class="tb-icon" title="Notifications" onclick="toggleNotifDD(event)" style="position:relative;"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg><div class="notif-dot"></div>
+        <div class="cur-dd" id="notif-dd" style="top:42px;right:auto;left:auto;transform:translateX(calc(-100% + 32px));position:absolute;min-width:250px;">
+          <div style="padding:8px 12px 6px;font-size:11px;font-weight:700;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;">Notifications</div>
+          <div class="cdi" onclick="event.stopPropagation();document.getElementById('notif-dd').classList.remove('open');go('refunds')"><span style="font-weight:600;color:var(--err);">3</span> refunds awaiting your review</div>
+          <div class="cdi" onclick="event.stopPropagation();document.getElementById('notif-dd').classList.remove('open');go('transactions')"><span style="font-weight:600;color:var(--warn);">1</span> payment confirming on-chain</div>
+        </div>
+      </div>
       <div class="tb-cur" id="lang-btn" onclick="toggleLangDD(event)" style="position:relative;">
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"></path></svg>
         <span id="lang-cur">EN</span>
@@ -1730,11 +1736,11 @@ a { transition: color var(--tr); }
 
   <div class="content">
 <!-- ══ DASHBOARD ══ -->
-<div class="page" id="page-dashboard">
+<div class="page active" id="page-dashboard">
   <div class="ph">
     <div class="ph-l"><h2 data-i18n="dash.title">Dashboard</h2><p data-i18n="dash.sub">May 1–15, 2025 · All payment methods</p></div>
     <div class="ph-r">
-      <button class="btn btn-s"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>May 1–15</button>
+      <button class="btn btn-s" onclick="toast('Demo period is fixed to May 1–15, 2025','info')"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>May 1–15</button>
       <button class="btn btn-p" onclick="toast(&#39;Exporting…&#39;,&#39;ok&#39;)"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg><span data-i18n="dash.export">Export</span></button>
     </div>
   </div>
@@ -1824,7 +1830,7 @@ a { transition: color var(--tr); }
     <div class="quick-actions">
       <div class="qa-title" data-i18n="dash.qa">Quick actions</div>
       <div class="qa-grid">
-        <div class="qa-item" onclick="go(&#39;transactions&#39;,document.querySelectorAll(&#39;.sbi&#39;)[1])">
+        <div class="qa-item" onclick="go(&#39;transactions&#39;)">
           <div class="qa-icon" style="background:var(--blue-lt);"><svg fill="none" viewBox="0 0 24 24" stroke="var(--blue-dk)" stroke-width="1.8"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"></path></svg></div>
           <div><div class="qa-label" data-i18n="dash.qa.txn">View transactions</div><div class="qa-sub" data-i18n="dash.qa.txn.d">Full history</div></div>
         </div>
@@ -1832,11 +1838,11 @@ a { transition: color var(--tr); }
           <div class="qa-icon" style="background:#ECFDF5;"><svg fill="none" viewBox="0 0 24 24" stroke="var(--ok-tx)" stroke-width="1.8"><path d="M12 19V5m-7 7l7-7 7 7"></path></svg></div>
           <div><div class="qa-label" data-i18n="dash.qa.withdraw">Withdraw funds</div><div class="qa-sub" data-i18n="dash.qa.withdraw.d">Request payout</div></div>
         </div>
-        <div class="qa-item" onclick="go(&#39;sub-merchants&#39;,document.querySelectorAll(&#39;.sbi&#39;)[7])">
+        <div class="qa-item" onclick="go(&#39;submerchants&#39;)">
           <div class="qa-icon" style="background:var(--purple-bg);"><svg fill="none" viewBox="0 0 24 24" stroke="var(--purple-tx)" stroke-width="1.8"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></div>
           <div><div class="qa-label" data-i18n="dash.qa.sub">Sub-merchants</div><div class="qa-sub" data-i18n="dash.qa.sub.d">View &amp; manage</div></div>
         </div>
-        <div class="qa-item" onclick="go(&#39;easypay&#39;,document.querySelectorAll(&#39;.sbi&#39;)[9])">
+        <div class="qa-item" onclick="go(&#39;easypay&#39;)">
           <div class="qa-icon" style="background:var(--warn-bg);"><svg fill="none" viewBox="0 0 24 24" stroke="var(--warn-tx)" stroke-width="1.8"><path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg></div>
           <div><div class="qa-label" data-i18n="dash.qa.ep">EasyPay link</div><div class="qa-sub" data-i18n="dash.qa.ep.d">Create payment link</div></div>
         </div>
@@ -1862,7 +1868,7 @@ a { transition: color var(--tr); }
 
   <!-- Recent txns — compact, only 5 rows -->
   <div class="card">
-    <div class="card-h"><div><h3 data-i18n="dash.recent">Recent transactions</h3></div><button class="btn btn-g btn-sm" onclick="go(&#39;transactions&#39;,document.querySelectorAll(&#39;.sbi&#39;)[1])">View all →</button></div>
+    <div class="card-h"><div><h3 data-i18n="dash.recent">Recent transactions</h3></div><button class="btn btn-g btn-sm" onclick="go(&#39;transactions&#39;)">View all →</button></div>
     <div class="tw"><table><thead><tr><th style="width:20%" data-i18n="th.txnid">Transaction ID</th><th style="width:12%" data-i18n="th.method">Method</th><th style="width:15%" data-i18n="th.ref">Reference</th><th style="width:13%" data-i18n="th.date">Date</th><th style="width:12%" data-i18n="th.amount">Amount</th><th data-i18n="th.status">Status</th></tr></thead><tbody id="dash-recent"><tr class="clk"><td class="mono">2025051214302200…</td><td><span class="pm pm-ali">Alipay</span></td><td class="mono">ORD-089241</td><td style="color:var(--text3);font-size:12px">2025-05-12 14:30</td><td class="fw">$148.50</td><td><span class="sb2 s-ok"><span class="sd"></span>Success</span></td></tr><tr class="clk"><td class="mono">2025051214110800…</td><td><span class="pm pm-wec">WeChat Pay</span></td><td class="mono">ORD-089240</td><td style="color:var(--text3);font-size:12px">2025-05-12 14:11</td><td class="fw">$32.00</td><td><span class="sb2 s-ok"><span class="sd"></span>Success</span></td></tr><tr class="clk"><td class="mono">2025051213554700…</td><td><span class="pm pm-uni">UnionPay</span></td><td class="mono">ORD-089238</td><td style="color:var(--text3);font-size:12px">2025-05-12 13:55</td><td class="fw">¥12,800</td><td><span class="sb2 s-pe"><span class="sd"></span>Pending</span></td></tr><tr class="clk"><td class="mono">2025051213302100…</td><td><span class="pm pm-cc">Visa</span></td><td class="mono">ORD-089235</td><td style="color:var(--text3);font-size:12px">2025-05-12 13:30</td><td class="fw">$77.00</td><td><span class="sb2 s-ok"><span class="sd"></span>Success</span></td></tr><tr class="clk"><td class="mono">2025051213140200…</td><td><span class="pm pm-wec">WeChat Pay</span></td><td class="mono">ORD-089234</td><td style="color:var(--text3);font-size:12px">2025-05-12 13:14</td><td class="fw">$19.99</td><td><span class="sb2 s-fl"><span class="sd"></span>Failed</span></td></tr></tbody></table></div>
   </div>
 </div>
@@ -1923,17 +1929,17 @@ a { transition: color var(--tr); }
   </div>
   <div class="stabs"><button class="stab act" onclick="swTab(&#39;acc-sum&#39;,this,&#39;acc&#39;)"><span data-i18n="ac.summary">Account Summary</span></button><button class="stab" onclick="swTab(&#39;acc-wh&#39;,this,&#39;acc&#39;)"><span data-i18n="ac.withdrawhist">Withdraw History</span></button><button class="stab" onclick="swTab(&#39;acc-fee&#39;,this,&#39;acc&#39;)"><span data-i18n="ac.monthlyfees">Monthly Fees</span></button></div>
   <div class="spanel act" id="acc-sum">
-    <div class="card" style="margin-bottom:0;"><div class="tw"><table><thead><tr><th style="width:13%" data-i18n="ac.th.mid">Merchant ID</th><th style="width:8%" data-i18n="th.currency">Currency</th><th style="width:12%" data-i18n="ac.th.balance">Balance</th><th style="width:14%">Pending</th><th style="width:11%" data-i18n="ac.th.margin">Margin</th><th style="width:11%" data-i18n="ac.th.frozen">Frozen</th><th style="width:9%" data-i18n="th.status">Status</th><th style="width:12%" data-i18n="ac.th.created">Created</th><th data-i18n="th.action">Action</th></tr></thead><tbody id="acc-body"><tr class="clk"><td class="mono">M001000001</td><td class="fw">USD</td><td class="fw">21,530.4</td><td style="color:var(--text3)">6,820</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td><span class="sb2 s-ok"><span class="sd"></span>Normal</span></td><td style="font-size:12px;color:var(--text3)">2016-08-01</td><td><div style="display:flex;gap:4px;"><button class="btn btn-s btn-xs" onclick="event.stopPropagation()">Details</button></div></td></tr><tr class="clk"><td class="mono">M001000001</td><td class="fw">JPY</td><td class="fw">1,240,000</td><td style="color:var(--text3)">380,000</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td><span class="sb2 s-ok"><span class="sd"></span>Normal</span></td><td style="font-size:12px;color:var(--text3)">2016-08-01</td><td><div style="display:flex;gap:4px;"><button class="btn btn-s btn-xs" onclick="event.stopPropagation()">Details</button></div></td></tr><tr class="clk"><td class="mono">M001000001</td><td class="fw">GBP</td><td class="fw">2,022.22</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td><span class="sb2 s-ok"><span class="sd"></span>Normal</span></td><td style="font-size:12px;color:var(--text3)">2017-01-06</td><td><div style="display:flex;gap:4px;"><button class="btn btn-s btn-xs" onclick="event.stopPropagation()">Details</button></div></td></tr><tr class="clk"><td class="mono">M001000001</td><td class="fw">CAD</td><td class="fw">70.24</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td><span class="sb2 s-ok"><span class="sd"></span>Normal</span></td><td style="font-size:12px;color:var(--text3)">2017-05-11</td><td><div style="display:flex;gap:4px;"><button class="btn btn-s btn-xs" onclick="event.stopPropagation()">Details</button></div></td></tr><tr class="clk"><td class="mono">M001000001</td><td class="fw">AUD</td><td class="fw">278.23</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td><span class="sb2 s-ok"><span class="sd"></span>Normal</span></td><td style="font-size:12px;color:var(--text3)">2020-04-10</td><td><div style="display:flex;gap:4px;"><button class="btn btn-s btn-xs" onclick="event.stopPropagation()">Details</button></div></td></tr><tr class="clk"><td class="mono">M001000001</td><td class="fw">CNY</td><td class="fw">6.52</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td><span class="sb2 s-ok"><span class="sd"></span>Normal</span></td><td style="font-size:12px;color:var(--text3)">2020-05-09</td><td><div style="display:flex;gap:4px;"><button class="btn btn-s btn-xs" onclick="event.stopPropagation()">Details</button></div></td></tr><tr class="clk"><td class="mono">M001000001</td><td class="fw">KRW</td><td class="fw">0</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td><span class="sb2 s-ok"><span class="sd"></span>Normal</span></td><td style="font-size:12px;color:var(--text3)">2020-11-11</td><td><div style="display:flex;gap:4px;"><button class="btn btn-s btn-xs" onclick="event.stopPropagation()">Details</button></div></td></tr><tr class="clk"><td class="mono">M001000001</td><td class="fw">SGD</td><td class="fw">3,100</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td><span class="sb2 s-ok"><span class="sd"></span>Normal</span></td><td style="font-size:12px;color:var(--text3)">2018-06-01</td><td><div style="display:flex;gap:4px;"><button class="btn btn-s btn-xs" onclick="event.stopPropagation()">Details</button></div></td></tr><tr class="clk"><td class="mono">M001000001</td><td class="fw">HKD</td><td class="fw">18,200</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td><span class="sb2 s-ok"><span class="sd"></span>Normal</span></td><td style="font-size:12px;color:var(--text3)">2018-03-15</td><td><div style="display:flex;gap:4px;"><button class="btn btn-s btn-xs" onclick="event.stopPropagation()">Details</button></div></td></tr><tr class="clk"><td class="mono">M001000001</td><td class="fw">THB</td><td class="fw">0</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td><span class="sb2 s-ok"><span class="sd"></span>Normal</span></td><td style="font-size:12px;color:var(--text3)">2025-01-23</td><td><div style="display:flex;gap:4px;"><button class="btn btn-s btn-xs" onclick="event.stopPropagation()">Details</button></div></td></tr></tbody></table></div>
+    <div class="card" style="margin-bottom:0;"><div class="tw"><table><thead><tr><th style="width:13%" data-i18n="ac.th.mid">Merchant ID</th><th style="width:8%" data-i18n="th.currency">Currency</th><th style="width:12%" data-i18n="ac.th.balance">Balance</th><th style="width:14%">Pending</th><th style="width:11%" data-i18n="ac.th.margin">Margin</th><th style="width:11%" data-i18n="ac.th.frozen">Frozen</th><th style="width:9%" data-i18n="th.status">Status</th><th style="width:12%" data-i18n="ac.th.created">Created</th><th data-i18n="th.action">Action</th></tr></thead><tbody id="acc-body"><tr class="clk"><td class="mono">M001000001</td><td class="fw">USD</td><td class="fw">21,530.4</td><td style="color:var(--text3)">6,820</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td><span class="sb2 s-ok"><span class="sd"></span>Normal</span></td><td style="font-size:12px;color:var(--text3)">2016-08-01</td><td><div style="display:flex;gap:4px;"><button class="btn btn-s btn-xs">Details</button></div></td></tr><tr class="clk"><td class="mono">M001000001</td><td class="fw">JPY</td><td class="fw">1,240,000</td><td style="color:var(--text3)">380,000</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td><span class="sb2 s-ok"><span class="sd"></span>Normal</span></td><td style="font-size:12px;color:var(--text3)">2016-08-01</td><td><div style="display:flex;gap:4px;"><button class="btn btn-s btn-xs">Details</button></div></td></tr><tr class="clk"><td class="mono">M001000001</td><td class="fw">GBP</td><td class="fw">2,022.22</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td><span class="sb2 s-ok"><span class="sd"></span>Normal</span></td><td style="font-size:12px;color:var(--text3)">2017-01-06</td><td><div style="display:flex;gap:4px;"><button class="btn btn-s btn-xs">Details</button></div></td></tr><tr class="clk"><td class="mono">M001000001</td><td class="fw">CAD</td><td class="fw">70.24</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td><span class="sb2 s-ok"><span class="sd"></span>Normal</span></td><td style="font-size:12px;color:var(--text3)">2017-05-11</td><td><div style="display:flex;gap:4px;"><button class="btn btn-s btn-xs">Details</button></div></td></tr><tr class="clk"><td class="mono">M001000001</td><td class="fw">AUD</td><td class="fw">278.23</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td><span class="sb2 s-ok"><span class="sd"></span>Normal</span></td><td style="font-size:12px;color:var(--text3)">2020-04-10</td><td><div style="display:flex;gap:4px;"><button class="btn btn-s btn-xs">Details</button></div></td></tr><tr class="clk"><td class="mono">M001000001</td><td class="fw">CNY</td><td class="fw">6.52</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td><span class="sb2 s-ok"><span class="sd"></span>Normal</span></td><td style="font-size:12px;color:var(--text3)">2020-05-09</td><td><div style="display:flex;gap:4px;"><button class="btn btn-s btn-xs">Details</button></div></td></tr><tr class="clk"><td class="mono">M001000001</td><td class="fw">KRW</td><td class="fw">0</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td><span class="sb2 s-ok"><span class="sd"></span>Normal</span></td><td style="font-size:12px;color:var(--text3)">2020-11-11</td><td><div style="display:flex;gap:4px;"><button class="btn btn-s btn-xs">Details</button></div></td></tr><tr class="clk"><td class="mono">M001000001</td><td class="fw">SGD</td><td class="fw">3,100</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td><span class="sb2 s-ok"><span class="sd"></span>Normal</span></td><td style="font-size:12px;color:var(--text3)">2018-06-01</td><td><div style="display:flex;gap:4px;"><button class="btn btn-s btn-xs">Details</button></div></td></tr><tr class="clk"><td class="mono">M001000001</td><td class="fw">HKD</td><td class="fw">18,200</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td><span class="sb2 s-ok"><span class="sd"></span>Normal</span></td><td style="font-size:12px;color:var(--text3)">2018-03-15</td><td><div style="display:flex;gap:4px;"><button class="btn btn-s btn-xs">Details</button></div></td></tr><tr class="clk"><td class="mono">M001000001</td><td class="fw">THB</td><td class="fw">0</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td style="color:var(--text3)">0</td><td><span class="sb2 s-ok"><span class="sd"></span>Normal</span></td><td style="font-size:12px;color:var(--text3)">2025-01-23</td><td><div style="display:flex;gap:4px;"><button class="btn btn-s btn-xs">Details</button></div></td></tr></tbody></table></div>
       <div class="pag"><span class="pag-info">Showing 1–10 of 14</span><div class="pag-btns"><button class="pag-btn act">1</button><button class="pag-btn">2</button></div></div>
     </div>
   </div>
   <div class="spanel" id="acc-wh">
-    <div class="card" style="margin-bottom:0;"><div class="fr"><input class="di" type="date"><span style="font-size:13px;color:var(--text3)">–</span><input class="di" type="date"><select class="sel"><option data-i18n="f.allcur">All currencies</option><option>USD</option><option>JPY</option></select><button class="btn btn-p btn-sm">Search</button><button class="btn btn-s btn-sm">Reset</button></div>
+    <div class="card" style="margin-bottom:0;"><div class="fr"><input class="di" type="date"><span style="font-size:13px;color:var(--text3)">–</span><input class="di" type="date"><select class="sel"><option data-i18n="f.allcur">All currencies</option><option>USD</option><option>JPY</option></select><button class="btn btn-p btn-sm" onclick="renderWH();toast('Filters applied','info')">Search</button><button class="btn btn-s btn-sm" onclick="this.closest('.fr').querySelectorAll('input,select').forEach(i=>i.value='');renderWH();toast('Filters reset','info')">Reset</button></div>
       <div class="tw"><table><thead><tr><th style="width:22%" data-i18n="ac.th.wid">Withdrawal ID</th><th style="width:11%" data-i18n="th.currency">Currency</th><th style="width:16%" data-i18n="th.amount">Amount</th><th style="width:20%" data-i18n="ac.th.requested">Requested</th><th style="width:18%">Processed</th><th data-i18n="th.status">Status</th></tr></thead><tbody id="wh-body"><tr><td class="mono">WD-2025-00142</td><td>USD</td><td class="fw">$18,240.00</td><td style="font-size:12px;color:var(--text3)">May 10, 2025 09:00</td><td style="font-size:12px;color:var(--text3)">May 12, 2025</td><td><span class="sb2 s-ok"><span class="sd"></span>Success</span></td></tr><tr><td class="mono">WD-2025-00141</td><td>JPY</td><td class="fw">¥980,000</td><td style="font-size:12px;color:var(--text3)">May 8, 2025 09:00</td><td style="font-size:12px;color:var(--text3)">May 10, 2025</td><td><span class="sb2 s-ok"><span class="sd"></span>Success</span></td></tr><tr><td class="mono">WD-2025-00140</td><td>USD</td><td class="fw">$12,100.00</td><td style="font-size:12px;color:var(--text3)">May 6, 2025 14:30</td><td style="font-size:12px;color:var(--text3)">May 8, 2025</td><td><span class="sb2 s-ok"><span class="sd"></span>Success</span></td></tr><tr><td class="mono">WD-2025-00139</td><td>CNY</td><td class="fw">¥45,000</td><td style="font-size:12px;color:var(--text3)">May 3, 2025 09:00</td><td style="font-size:12px;color:var(--text3)">May 5, 2025</td><td><span class="sb2 s-ok"><span class="sd"></span>Success</span></td></tr><tr><td class="mono">WD-2025-00138</td><td>USD</td><td class="fw">$9,800.00</td><td style="font-size:12px;color:var(--text3)">Apr 28, 2025 09:00</td><td style="font-size:12px;color:var(--text3)">Apr 30, 2025</td><td><span class="sb2 s-ok"><span class="sd"></span>Success</span></td></tr><tr><td class="mono">WD-2025-00142</td><td>USD</td><td class="fw">$18,240.00</td><td style="font-size:12px;color:var(--text3)">May 10, 2025 09:00</td><td style="font-size:12px;color:var(--text3)">May 12, 2025</td><td><span class="sb2 s-ok"><span class="sd"></span>Success</span></td></tr><tr><td class="mono">WD-2025-00141</td><td>JPY</td><td class="fw">¥980,000</td><td style="font-size:12px;color:var(--text3)">May 8, 2025 09:00</td><td style="font-size:12px;color:var(--text3)">May 10, 2025</td><td><span class="sb2 s-ok"><span class="sd"></span>Success</span></td></tr><tr><td class="mono">WD-2025-00140</td><td>USD</td><td class="fw">$12,100.00</td><td style="font-size:12px;color:var(--text3)">May 6, 2025 14:30</td><td style="font-size:12px;color:var(--text3)">May 8, 2025</td><td><span class="sb2 s-ok"><span class="sd"></span>Success</span></td></tr><tr><td class="mono">WD-2025-00139</td><td>CNY</td><td class="fw">¥45,000</td><td style="font-size:12px;color:var(--text3)">May 3, 2025 09:00</td><td style="font-size:12px;color:var(--text3)">May 5, 2025</td><td><span class="sb2 s-ok"><span class="sd"></span>Success</span></td></tr><tr><td class="mono">WD-2025-00138</td><td>USD</td><td class="fw">$9,800.00</td><td style="font-size:12px;color:var(--text3)">Apr 28, 2025 09:00</td><td style="font-size:12px;color:var(--text3)">Apr 30, 2025</td><td><span class="sb2 s-ok"><span class="sd"></span>Success</span></td></tr></tbody></table></div>
     </div>
   </div>
   <div class="spanel" id="acc-fee">
-    <div class="card" style="margin-bottom:0;"><div class="fr"><input class="di" type="month"><button class="btn btn-p btn-sm">Search</button></div>
+    <div class="card" style="margin-bottom:0;"><div class="fr"><input class="di" type="month"><button class="btn btn-p btn-sm" onclick="toast('Statement loaded','info')">Search</button></div>
       <div class="tw"><table><thead><tr><th>Period</th><th data-i18n="th.currency">Currency</th><th>Fee amount</th><th>Deducted from</th><th data-i18n="th.status">Status</th></tr></thead><tbody>
         <tr><td class="mono">2025-04</td><td>USD</td><td class="fw">$25.00</td><td style="color:var(--text3)">Available balance</td><td><span class="sb2 s-ok"><span class="sd"></span>Charged</span></td></tr>
         <tr><td class="mono">2025-03</td><td>USD</td><td class="fw">$25.00</td><td style="color:var(--text3)">Available balance</td><td><span class="sb2 s-ok"><span class="sd"></span>Charged</span></td></tr>
@@ -2386,7 +2392,7 @@ a { transition: color var(--tr); }
   <div class="ph"><div class="ph-l"><h2 data-i18n="ep.title">EasyPay Links</h2><p data-i18n="ep.sub">Generate shareable payment links for customers</p></div><div class="ph-r"><button class="btn btn-p" onclick="swEP(&#39;ep-new&#39;,document.querySelectorAll(&#39;#page-easypay .stab&#39;)[2])"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M12 4v16m8-8H4"></path></svg><span data-i18n="ep.newlink">New link</span></button></div></div>
   <div class="stabs"><button class="stab act" onclick="swEP(&#39;ep-orders&#39;,this)"><span data-i18n="ep.orders">Payment Orders</span></button><button class="stab" onclick="swEP(&#39;ep-custom&#39;,this)"><span data-i18n="ep.custpages">Customized Pages</span></button><button class="stab" onclick="swEP(&#39;ep-new&#39;,this)">+ Create new</button></div>
   <div class="spanel act" id="ep-orders">
-    <div class="card" style="margin-bottom:0;"><div class="fr"><input class="di" type="date"><span style="font-size:13px;color:var(--text3)">–</span><input class="di" type="date"><select class="sel"><option data-i18n="f.allstatuses">All statuses</option><option>Pending</option><option>Completed</option></select><button class="btn btn-p btn-sm">Search</button><button class="btn btn-s btn-sm">Reset</button></div>
+    <div class="card" style="margin-bottom:0;"><div class="fr"><input class="di" type="date"><span style="font-size:13px;color:var(--text3)">–</span><input class="di" type="date"><select class="sel"><option data-i18n="f.allstatuses">All statuses</option><option>Pending</option><option>Completed</option></select><button class="btn btn-p btn-sm" onclick="renderEP();toast('Filters applied','info')">Search</button><button class="btn btn-s btn-sm" onclick="this.closest('.fr').querySelectorAll('input,select').forEach(i=>i.value='');renderEP();toast('Filters reset','info')">Reset</button></div>
       <div class="tw"><table><thead><tr><th style="width:19%" data-i18n="th.ref">Reference</th><th style="width:6%" data-i18n="th.cur">Cur.</th><th style="width:7%">Amt.</th><th style="width:14%" data-i18n="ep.th.desc">Description</th><th style="width:8%" data-i18n="ac.th.created">Created</th><th style="width:7%" data-i18n="ep.th.timeout">Timeout</th><th style="width:8%" data-i18n="th.status">Status</th><th style="width:22%" data-i18n="ep.th.paylink">Payment Link</th><th data-i18n="th.action">Action</th></tr></thead><tbody id="ep-body"></tbody></table></div>
       <div class="pag"><span class="pag-info" id="ep-pag"></span><div class="pag-btns"><button class="pag-btn act">1</button></div></div>
     </div>
@@ -2401,11 +2407,11 @@ a { transition: color var(--tr); }
     <div class="card-b ep-form">
       <div class="ep-row"><div class="ep-lbl">Merchant ID</div><input class="fi fi-ro" value="M001000001" readonly=""></div>
       <div class="ep-row"><div class="ep-lbl">Merchant name</div><input class="fi fi-ro" value="SunnyDelivery" readonly=""></div>
-      <div class="ep-row"><div class="ep-lbl"><span class="req">*</span> Timeout (days)</div><select class="fi fi-sel" style="height:38px;"><option>0</option><option>1</option><option>3</option><option>7</option><option>14</option><option>30</option></select></div>
+      <div class="ep-row"><div class="ep-lbl"><span class="req">*</span> Timeout (days)</div><select class="fi fi-sel" id="ep-timeout" style="height:38px;"><option>0</option><option>1</option><option>3</option><option>7</option><option>14</option><option>30</option></select></div>
       <div class="ep-row"><div class="ep-lbl"><span class="req">*</span> Reference</div><input class="fi" id="ep-ref" placeholder="Auto-generated or custom"></div>
-      <div class="ep-row"><div class="ep-lbl"><span class="req">*</span> Currency</div><select class="fi fi-sel" style="height:38px;"><option>USD</option><option>JPY</option><option>CNY</option><option>AUD</option><option>GBP</option></select></div>
-      <div class="ep-row"><div class="ep-lbl"><span class="req">*</span> Amount</div><input class="fi" type="number" step="0.01" placeholder="0.00"></div>
-      <div class="ep-row"><div class="ep-lbl"><span class="req">*</span> Description</div><textarea class="fi fi-ta" placeholder="Max 150 characters" maxlength="150"></textarea></div>
+      <div class="ep-row"><div class="ep-lbl"><span class="req">*</span> Currency</div><select class="fi fi-sel" id="ep-cur" style="height:38px;"><option>USD</option><option>JPY</option><option>CNY</option><option>AUD</option><option>GBP</option></select></div>
+      <div class="ep-row"><div class="ep-lbl"><span class="req">*</span> Amount</div><input class="fi" id="ep-amt" type="number" step="0.01" placeholder="0.00"></div>
+      <div class="ep-row"><div class="ep-lbl"><span class="req">*</span> Description</div><textarea class="fi fi-ta" id="ep-desc" placeholder="Max 150 characters" maxlength="150"></textarea></div>
       <div class="ep-row"><div class="ep-lbl">Note</div><textarea class="fi fi-ta" placeholder="Max 150 characters" maxlength="150"></textarea></div>
       <div class="ep-acts"><button class="btn btn-p" onclick="createEP()"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>Generate payment link</button><button class="btn btn-s" onclick="swEP(&#39;ep-orders&#39;,document.querySelectorAll(&#39;#page-easypay .stab&#39;)[0])">Cancel</button></div>
     </div></div>
@@ -2494,7 +2500,7 @@ a { transition: color var(--tr); }
 <!-- Crypto Payments -->
 <div class="page" id="page-crypto-payments">
   <div class="ph"><div class="ph-l"><h2 data-i18n="cr.pay.title">Crypto Payments</h2><p data-i18n="cr.pay.sub">On-chain stablecoin payments received</p></div>
-    <div class="ph-r"><button class="btn btn-s"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg><span data-i18n="tx.exportcsv">Export CSV</span></button></div>
+    <div class="ph-r"><button class="btn btn-s" onclick="toast('Exporting CSV…','info')"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg><span data-i18n="tx.exportcsv">Export CSV</span></button></div>
   </div>
   <div class="card" style="margin:0;">
     <div class="tw"><table>
@@ -2541,7 +2547,7 @@ a { transition: color var(--tr); }
 </div>
 
 
-<div class="page active" id="page-settings">
+<div class="page" id="page-settings">
   <div class="ph"><div class="ph-l"><h2 data-i18n="set.title">Settings</h2><p data-i18n="set.sub">Account, credentials, and integrations</p></div></div>
   <div class="set-tabbar" id="set-tabbar">
     <button class="set-tab on" data-tab="account" onclick="setSettingsTab('account')" data-i18n="set.tab.account">Account</button>
@@ -2714,7 +2720,7 @@ a { transition: color var(--tr); }
     <button class="btn btn-p" id="mo-rb" onclick="doRefund()"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M3 10h10a4 4 0 010 8H9m-6-8l3-3m-3 3l3 3"></path></svg>Issue refund</button></div></div></div>
 
 <!-- Refund -->
-<div class="mo-ov" id="mo-refund"><div class="mo"><div class="mo-h"><h2>Issue refund</h2><button class="mo-x" onclick="closeM(&#39;mo-refund&#39;)"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M6 18L18 6M6 6l12 12"></path></svg></button></div><div class="mo-b"><div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:13px 15px;margin-bottom:15px;"><div style="font-size:12px;color:var(--text3);margin-bottom:2px;">Original amount</div><div style="font-size:20px;font-weight:700;letter-spacing:-.4px;" id="ref-orig">$0.00</div></div><div class="fg"><label>Refund amount <span class="req">*</span></label><input class="fi" id="ref-amt" type="number" step="0.01" placeholder="0.00"><div class="fn">Max: <span id="ref-max">$0.00</span></div></div><div class="fg"><label>Trade password <span class="req">*</span></label><input class="fi" type="password" placeholder="Enter your trade password"></div><div class="fg"><label>Reason (optional)</label><input class="fi" type="text" placeholder="e.g. Customer request…"></div><div class="alert a-warn"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"></path></svg>Refunds are processed within 5–15 business days and cannot be undone.</div></div><div class="mo-f"><button class="btn btn-s" onclick="closeM(&#39;mo-refund&#39;)">Cancel</button><button class="btn btn-p" onclick="submitRefund()"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M5 13l4 4L19 7"></path></svg>Confirm refund</button></div></div></div>
+<div class="mo-ov" id="mo-refund"><div class="mo"><div class="mo-h"><h2>Issue refund</h2><button class="mo-x" onclick="closeM(&#39;mo-refund&#39;)"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M6 18L18 6M6 6l12 12"></path></svg></button></div><div class="mo-b"><div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:13px 15px;margin-bottom:15px;"><div style="font-size:12px;color:var(--text3);margin-bottom:2px;">Original amount</div><div style="font-size:20px;font-weight:700;letter-spacing:-.4px;" id="ref-orig">$0.00</div></div><div class="fg"><label>Refund amount <span class="req">*</span></label><input class="fi" id="ref-amt" type="number" step="0.01" placeholder="0.00"><div class="fn">Max: <span id="ref-max">$0.00</span></div></div><div class="fg"><label>Trade password <span class="req">*</span></label><input class="fi" id="ref-pw" type="password" placeholder="Enter your trade password"></div><div class="fg"><label>Reason (optional)</label><input class="fi" type="text" placeholder="e.g. Customer request…"></div><div class="alert a-warn"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"></path></svg>Refunds are processed within 5–15 business days and cannot be undone.</div></div><div class="mo-f"><button class="btn btn-s" onclick="closeM(&#39;mo-refund&#39;)">Cancel</button><button class="btn btn-p" onclick="submitRefund()"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M5 13l4 4L19 7"></path></svg>Confirm refund</button></div></div></div>
 
 <!-- Withdraw modal removed -->
 <!-- Sub-merchant Add (Scheme 1 single) -->
@@ -3843,6 +3849,8 @@ function go(navOrPage, el){
   var conf = NAV_MAP[navId] || {page:navOrPage};
   // If a specific tab page was requested, use it; else the nav's default page
   var pageId = NAV_MAP[navOrPage] ? conf.page : navOrPage;
+  // Unknown target: keep the current page instead of blanking the app
+  if(!document.getElementById('page-'+pageId)){ console.warn('go(): unknown page "'+pageId+'"'); return; }
 
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.sbi').forEach(n=>n.classList.remove('active'));
@@ -3877,6 +3885,7 @@ function go(navOrPage, el){
     'split-history':()=>filterSH(),
     'split-modes': ()=>renderModes(),
     'qrcodes':     ()=>renderQR(),
+    'easypay':     ()=>{renderEP();renderEPC();},
     'account':     ()=>renderAccs(),
     'onboard-link':()=>renderOBLinks(),
     'settings':()=>setSettingsTab('account'),
@@ -3982,6 +3991,7 @@ function swChart(p,el){document.querySelectorAll('.ct-btn').forEach(b=>b.classLi
 function renderDashRecent(){const tb=document.getElementById('dash-recent');if(!tb)return;tb.innerHTML='';TXN.slice(0,5).forEach(t=>{const tr=document.createElement('tr');tr.className='clk';tr.onclick=()=>openTxnDetail(t);tr.innerHTML=`<td class="mono">${t.id.slice(0,16)}…</td><td>${pmB(t.method)}</td><td class="mono">${t.ref}</td><td style="color:var(--text3);font-size:12px">${t.date}</td><td class="fw">${fmt(t.amt,t.cur)}</td><td>${sB(t.status)}</td>`;tb.appendChild(tr);});}
 
 function openTxnDetail(t){
+  CUR_TXN=t;
   document.getElementById('mo-lbl').textContent=t.type||'—';
   document.getElementById('mo-amt').textContent=fmt(t.amt,t.cur);
   document.getElementById('mo-st').innerHTML=sB(t.status);
@@ -4010,14 +4020,92 @@ function openTxnDetail(t){
 
 function filterTxns(){const q=v('t-q').toLowerCase(),cu=v('t-cur'),me=v('t-method'),st=v('t-status'),ty=v('t-type');const f=TXN.filter(t=>(!q||t.id.includes(q)||t.ref.toLowerCase().includes(q)||String(t.amt).includes(q))&&(!cu||t.cur===cu)&&(!me||(me==='__CRYPTO__'?['USDT','USDC','BTC','ETH','PYUSD'].indexOf(t.method)>=0:t.method===me))&&(!st||t.status===st)&&(!ty||t.type===ty));const tb=document.getElementById('txn-body');if(!tb)return;tb.innerHTML='';if(!f.length){tb.innerHTML=`<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--text3)">No transactions found.</td></tr>`;v('txn-pag')&&(document.getElementById('txn-pag').textContent='0 results');return;}f.forEach(t=>{const tr=document.createElement('tr');tr.className='clk';tr.onclick=()=>openTxnDetail(t);tr.innerHTML=`<td class="mono">${t.id.slice(0,18)}…</td><td style="font-size:12px;color:var(--text2)">${txType(t.type)}</td><td>${pmB(t.method)}</td><td class="mono">${t.ref}</td><td style="font-size:12px;color:var(--text3)">${t.date}</td><td style="font-size:12px;color:var(--text2)">${t.cur}</td><td class="fw">${fmt(t.amt,t.cur)}</td><td>${sB(t.status)}</td>`;tb.appendChild(tr);});document.getElementById('txn-pag').textContent=`Showing ${f.length} of ${TXN.length} transactions`;}
 
-function renderAccs(){const tb=document.getElementById('acc-body');if(!tb)return;tb.innerHTML='';let show=accCurF==='all'?ACCS:accCurF==='other'?ACCS.filter(a=>!MAJORS.includes(a.cur)):ACCS.filter(a=>a.cur===accCurF);show.slice(0,10).forEach(a=>{const tr=document.createElement('tr');tr.className='clk';tr.onclick=()=>{document.getElementById('mo-acc-bd').innerHTML=`<div class="hero"><div class="hero-lbl">${a.mid} · ${a.cur}</div><div class="hero-amt" style="font-size:26px">${a.bal.toLocaleString()}</div><div class="hero-st">${sB(a.st)}</div></div><div class="dr"><span class="dk">Pending</span><span class="dv p">${a.pend.toLocaleString()}</span></div><div class="dr"><span class="dk">Margin</span><span class="dv p">${a.mg}</span></div><div class="dr"><span class="dk">Frozen</span><span class="dv p">${a.fr}</span></div><div class="dr"><span class="dk">Created</span><span class="dv p">${a.cd}</span></div>`;openM('mo-acc');};tr.innerHTML=`<td class="mono">${a.mid}</td><td class="fw">${a.cur}</td><td class="fw">${a.bal.toLocaleString()}</td><td style="color:var(--text3)">${a.pend.toLocaleString()}</td><td style="color:var(--text3)">${a.mg}</td><td style="color:var(--text3)">${a.fr}</td><td>${sB(a.st)}</td><td style="font-size:12px;color:var(--text3)">${a.cd}</td><td><div style="display:flex;gap:4px;"><button class="btn btn-s btn-xs" onclick="event.stopPropagation()">Details</button></div></td>`;tb.appendChild(tr);});}
+function renderAccs(){const tb=document.getElementById('acc-body');if(!tb)return;tb.innerHTML='';let show=accCurF==='all'?ACCS:accCurF==='other'?ACCS.filter(a=>!MAJORS.includes(a.cur)):ACCS.filter(a=>a.cur===accCurF);show.slice(0,10).forEach(a=>{const tr=document.createElement('tr');tr.className='clk';tr.onclick=()=>{document.getElementById('mo-acc-bd').innerHTML=`<div class="hero"><div class="hero-lbl">${a.mid} · ${a.cur}</div><div class="hero-amt" style="font-size:26px">${a.bal.toLocaleString()}</div><div class="hero-st">${sB(a.st)}</div></div><div class="dr"><span class="dk">Pending</span><span class="dv p">${a.pend.toLocaleString()}</span></div><div class="dr"><span class="dk">Margin</span><span class="dv p">${a.mg}</span></div><div class="dr"><span class="dk">Frozen</span><span class="dv p">${a.fr}</span></div><div class="dr"><span class="dk">Created</span><span class="dv p">${a.cd}</span></div>`;openM('mo-acc');};tr.innerHTML=`<td class="mono">${a.mid}</td><td class="fw">${a.cur}</td><td class="fw">${a.bal.toLocaleString()}</td><td style="color:var(--text3)">${a.pend.toLocaleString()}</td><td style="color:var(--text3)">${a.mg}</td><td style="color:var(--text3)">${a.fr}</td><td>${sB(a.st)}</td><td style="font-size:12px;color:var(--text3)">${a.cd}</td><td><div style="display:flex;gap:4px;"><button class="btn btn-s btn-xs">Details</button></div></td>`;tb.appendChild(tr);});}
 
-function renderWH(){['wh-body','settle-body'].forEach(id=>{const tb=document.getElementById(id);if(!tb)return;WH.forEach(w=>{const tr=document.createElement('tr');tr.innerHTML=`<td class="mono">${w.id}</td><td>${w.cur}</td><td class="fw">${w.amt}</td><td style="font-size:12px;color:var(--text3)">${w.req}</td><td style="font-size:12px;color:var(--text3)">${w.proc}</td><td>${sB(w.st)}</td>`;tb.appendChild(tr);});});}
+function renderWH(){['wh-body','settle-body'].forEach(id=>{const tb=document.getElementById(id);if(!tb)return;tb.innerHTML='';WH.forEach(w=>{const tr=document.createElement('tr');tr.innerHTML=`<td class="mono">${w.id}</td><td>${w.cur}</td><td class="fw">${w.amt}</td><td style="font-size:12px;color:var(--text3)">${w.req}</td><td style="font-size:12px;color:var(--text3)">${w.proc}</td><td>${sB(w.st)}</td>`;tb.appendChild(tr);});});}
 
 // (filterRefunds removed — no #refund-body table exists; the Refunds pages use filterRA/filterRR)
 
 // SUB TABS
 function swEP(id,el){document.querySelectorAll('#page-easypay .spanel').forEach(p=>p.classList.remove('act'));document.querySelectorAll('#page-easypay .stab').forEach(t=>t.classList.remove('act'));document.getElementById(id).classList.add('act');if(el)el.classList.add('act');}
+
+// ── EasyPay: orders & custom pages ──
+function renderEP(){
+  const tb=document.getElementById('ep-body');if(!tb)return;
+  tb.innerHTML='';
+  EP.forEach(o=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td class="mono" style="font-size:12px;">${o.ref}</td><td>${o.cur}</td><td class="fw">${fmt(o.amt,o.cur)}</td><td style="font-size:12px;color:var(--text2);">${o.desc}</td><td style="font-size:12px;color:var(--text3);">${o.cd}</td><td style="font-size:12px;color:var(--text3);">${o.to}d</td><td>${sB(o.st)}</td><td class="mono" style="font-size:11px;color:var(--text3);word-break:break-all;">${o.link}</td><td><button class="btn btn-s btn-xs" data-link="${o.link}" onclick="copyLink(this)">Copy</button></td>`;
+    tb.appendChild(tr);
+  });
+  setText('ep-pag','Showing '+EP.length+' of '+EP.length+' orders');
+}
+function renderEPC(){
+  const tb=document.getElementById('epc-body');if(!tb)return;
+  tb.innerHTML='';
+  EPC.forEach(c=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td class="fw">${c.m}</td><td class="mono" style="font-size:12px;">${c.a}</td><td class="mono" style="font-size:11px;color:var(--text3);word-break:break-all;">${c.l}</td><td>${sB(c.en)}</td><td style="font-size:12px;color:var(--text3);">${c.cd}</td><td><button class="btn btn-s btn-xs" data-link="${c.l}" onclick="copyLink(this)">Copy</button></td>`;
+    tb.appendChild(tr);
+  });
+}
+function createEP(){
+  const amt=parseFloat(v('ep-amt')),desc=v('ep-desc').trim(),cur=v('ep-cur')||'USD',to=parseInt(v('ep-timeout'))||0;
+  if(!amt||amt<=0){toast('Enter a valid amount','er');return;}
+  if(!desc){toast('Description is required','er');return;}
+  let ref=v('ep-ref').trim();
+  if(!ref){const d=new Date();ref=d.toISOString().slice(0,10).replace(/-/g,'')+Math.random().toString(36).slice(2,10).toUpperCase();}
+  const link='https://easypay.nihaopay.com/pay/'+Math.random().toString(36).slice(2,12).toUpperCase();
+  EP.unshift({ref:ref,cur:cur,amt:amt,desc:desc,cd:new Date().toISOString().slice(0,10),to:to,st:'Pending',link:link});
+  renderEP();
+  ['ep-ref','ep-amt','ep-desc'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  swEP('ep-orders',document.querySelectorAll('#page-easypay .stab')[0]);
+  toast('Payment link created — copy it from the orders list','ok');
+}
+
+// ── Notifications dropdown ──
+function toggleNotifDD(e){e.stopPropagation();document.getElementById('lang-dd')?.classList.remove('open');document.getElementById('cur-dd')?.classList.remove('open');document.getElementById('notif-dd').classList.toggle('open');}
+document.addEventListener('click',()=>document.getElementById('notif-dd')?.classList.remove('open'));
+
+// ── Refund flow (from transaction detail) ──
+var CUR_TXN=null;
+function doRefund(){
+  if(!CUR_TXN){toast('Open a transaction first','er');return;}
+  if(CUR_TXN.status!=='Success'){toast('Only successful transactions can be refunded','er');return;}
+  closeM('mo-txn');
+  setText('ref-orig',fmt(CUR_TXN.amt,CUR_TXN.cur));
+  setText('ref-max',fmt(CUR_TXN.amt,CUR_TXN.cur));
+  const a=document.getElementById('ref-amt');if(a){a.value='';a.max=CUR_TXN.amt;}
+  const p=document.getElementById('ref-pw');if(p)p.value='';
+  openM('mo-refund');
+}
+function submitRefund(){
+  if(!CUR_TXN){closeM('mo-refund');return;}
+  const amt=parseFloat(v('ref-amt'));
+  if(!amt||amt<=0){toast('Enter a refund amount','er');return;}
+  if(amt>CUR_TXN.amt){toast('Refund cannot exceed '+fmt(CUR_TXN.amt,CUR_TXN.cur),'er');return;}
+  if(!v('ref-pw')){toast('Trade password is required','er');return;}
+  closeM('mo-refund');
+  toast('Refund of '+fmt(amt,CUR_TXN.cur)+' submitted — processed within 5–15 business days','ok');
+}
+
+// ── Profit-sharing recipient autocomplete ──
+function filterACRecipient(q){
+  q=(q||'').toLowerCase();
+  const dd=document.getElementById('ps-ac-dd');if(!dd)return;
+  dd.classList.add('open');
+  let any=false;
+  dd.querySelectorAll('.ac-item').forEach(it=>{
+    const hit=!q||it.textContent.toLowerCase().includes(q);
+    it.style.display=hit?'':'none';
+    if(hit)any=true;
+  });
+  let empty=dd.querySelector('.ac-empty');
+  if(!any){
+    if(!empty){empty=document.createElement('div');empty.className='ac-item ac-empty';empty.style.color='var(--text3)';empty.textContent='No matching sub-merchants';dd.appendChild(empty);}
+    empty.style.display='';
+  }else if(empty){empty.style.display='none';}
+}
 function swTab(id,el,scope){const mo=el?.closest('.mo-b,.card-b,.page');if(mo){mo.querySelectorAll('.spanel').forEach(p=>p.classList.remove('act'));mo.querySelectorAll('.stab').forEach(t=>t.classList.remove('act'));}else{document.querySelectorAll(`#page-${scope||''} .spanel, #mo-sub-detail .spanel`).forEach(p=>p.classList.remove('act'));document.querySelectorAll(`#page-${scope||''} .stab, #mo-sub-detail .stab`).forEach(t=>t.classList.remove('act'));}document.getElementById(id)?.classList.add('act');if(el)el.classList.add('act');}
 
 // PAYOUT SELECTOR
@@ -4388,9 +4476,10 @@ function initApp(){
   S(applyCaps); S(renderFeatures); S(renderCrypto);
   S(renderDashRecent); S(filterTxns); S(renderAccs); S(renderWH); S(renderOBLinks);
   qrFilt=[...QRS];
-  S(renderQR); S(renderChannels);
+  S(renderQR); S(renderChannels); S(renderEP); S(renderEPC);
   S(function(){ setLang(CUR_LANG); });
   S(function(){ buildChart('15d'); });
+  S(function(){ go('dashboard'); });
 }
 try{ccPopulateSelectors();}catch(e){}
 try{gateApplyNav();gateApplyDashboard();}catch(e){}
